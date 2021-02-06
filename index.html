@@ -38,7 +38,7 @@
     <!-- single food details  -->
 
     <!-- Modal -->
-    <!-- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -48,9 +48,9 @@
                 <div class="modal-body">
                     <div class="col">
                         <div class="card h-100">
-                            <img src="https:\/\/www.themealdb.com\/images\/category\/beef.png" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
+                            <img id="modalImage" src="image.png" class="card-img-top" alt="...">
+                            <div id="ingredientList" class="card-body">
+
                             </div>
                         </div>
                     </div>
@@ -60,7 +60,8 @@
                 </div>
             </div>
         </div>
-    </div> -->
+    </div>
+
     <!-- search  -->
     <div class="container mt-5 mb-5 w-50">
         <div class="row text-center">
@@ -79,44 +80,11 @@
     <!-- item name and pic -->
     <div id="localBox" class="container">
         <div id="allFoodContainer" class="row row-cols-2 row-cols-md-4 g-4">
-            <!-- <div class="col">
-                <div class="card h-100">
-                    <img src="https:\/\/www.themealdb.com\/images\/category\/beef.png" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                    </div>
-                </div>
-            </div> -->
+
         </div>
     </div>
 
     <script>
-        // fetch('https://www.themealdb.com/api/json/v1/1/categories.php')
-        //     .then(response => response.json())
-        //     .then(data => {
-        //         food(data)
-        //     })
-
-        // const food = data => {
-        //     const foodCategories = data.categories;
-        //     console.log(foodCategories)
-        //     foodCategories.forEach(myFunction);
-        // }
-
-        // function myFunction(item, index, arr) {
-        //     const rank = arr[index];
-        //     const box = `<div class="col">
-        //         <div class="card h-100">
-        //             <img src="${rank.strCategoryThumb}" class="card-img-top" alt="...">
-        //             <div class="card-body">
-        //                 <h5 class="card-title">${rank.strCategory}</h5>
-        //             </div>
-        //         </div>
-        //     </div>`
-        //     const allFoodContainer = document.getElementById('allFoodContainer')
-        //     allFoodContainer.innerHTML += box
-        // }
-
         fetch('https://themealdb.com/api/json/v1/1/filter.php?c=Miscellaneous')
             .then(response => response.json())
             .then(data => {
@@ -130,51 +98,27 @@
 
         function myFunction(item, index, arr) {
             const rank = arr[index];
-            const box = `<div onclick="foodDetails('${rank.strMeal}')" class="col" data-bs-toggle="modal" data-bs-target="#a${rank.idMeal}">
+            const box = `<div onclick="foodIngredients('${rank.idMeal}')" class="col" data-bs-toggle="modal" data-bs-target="#myModal">
                 <div class="card h-100">
                     <img src="${rank.strMealThumb}" class="card-img-top" alt="...">
                     <div class="card-body">
                         <h5 class="card-title">${rank.strMeal}</h5>
                     </div>
                 </div>
-            </div>
-            
-            <div class="modal fade" id="a${rank.idMeal}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Food Details</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="col">
-                        <div class="card h-100">
-                            <img src="${rank.strMealThumb}" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">${rank.strMeal}</h5>
-                                <h6>Ingredients</h6>
-                               
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>`
-            let myList = foodIngredients(rank.idMeal)
-            console.log(myList)
+            </div>`
+                // let myList = foodIngredients(rank.idMeal)
+                // console.log(myList)
             const allFoodContainer = document.getElementById('allFoodContainer')
             allFoodContainer.innerHTML += box
         }
 
-        const foodDetails = foodName => {
-            console.log(foodName + ' is clicked ')
-        }
+        // const foodDetails = foodName => {
+        //     console.log(foodName + ' is clicked '
+        //     )
+        // }
 
         const foodIngredients = foodName => {
+
             fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${foodName}`)
                 .then(response => response.json())
                 .then(data => {
@@ -184,28 +128,19 @@
                         const listing = arr[index];
                         console.log(listing)
                         const ingredientItems = `
+                        <h5 id="foodName" class="card-title">${listing.strMeal}</h5>
+                                <h6>Ingredients</h6>
             <p>${listing.strMeasure1} ${listing.strIngredient1}</p>
             <p>${listing.strMeasure2} ${listing.strIngredient2}</p>
             <p>${listing.strMeasure3} ${listing.strIngredient3}</p>
             <p>${listing.strMeasure4} ${listing.strIngredient4}</p>
             `
-                            // console.log(ingredientItems)
-                        return ingredientItems;
+                        console.log(ingredientItems)
+                        document.getElementById("ingredientList").innerHTML = ingredientItems
+                        document.getElementById("modalImage").src = listing.strMealThumb
                     })
                 })
         }
-
-        // function ingredientList(item, index, arr) {
-        //     const listing = arr[index];
-        //     console.log(listing)
-        //     const ingredientItems = `
-        //     <p>${listing.strMeasure1} ${listing.strIngredient1}</p>
-        //     <p>${listing.strMeasure2} ${listing.strIngredient2}</p>
-        //     <p>${listing.strMeasure3} ${listing.strIngredient3}</p>
-        //     <p>${listing.strMeasure4} ${listing.strIngredient4}</p>
-        //     `
-        //     return ingredientItems;
-        // }
     </script>
 
 
