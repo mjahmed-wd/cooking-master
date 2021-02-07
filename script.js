@@ -1,5 +1,7 @@
+//getting the value of the search field 
 let searchInput = document.getElementById('input')
 
+//calling the food container data 
 function getFoodContainer() {
     document.getElementById('allFoodContainer').innerHTML = ""
     fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${searchInput.value}`)
@@ -12,12 +14,13 @@ function getFoodContainer() {
         })
 }
 
-
+//printing the data from search results
 const food = data => {
     const foodCategories = data.meals;
     document.getElementById('notification').style.display = "none";
     foodCategories.forEach((item, index, arr) => {
         const rank = arr[index];
+
         const box = `<div onclick="foodIngredients('${rank.idMeal}')" class="col" data-bs-toggle="modal" data-bs-target="#myModal">
                         <div class="card h-100">
                             <img src="${rank.strMealThumb}" class="card-img-top" alt="...">
@@ -32,7 +35,7 @@ const food = data => {
     })
 }
 
-
+//getting the data of clicked food item and printing it
 const foodIngredients = foodName => {
 
     fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${foodName}`)
@@ -56,14 +59,10 @@ const foodIngredients = foodName => {
         })
 }
 
-
+//search button clicking with enter key
 searchInput.addEventListener("keydown", function(event) {
     if (event.keyCode === 13) {
         event.preventDefault();
         document.getElementById("searchBtn").click();
     }
 });
-
-function liveSearch() {
-    getFoodContainer()
-}

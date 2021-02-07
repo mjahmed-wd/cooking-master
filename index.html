@@ -10,7 +10,6 @@
 </head>
 
 <body>
-
     <!-- navbar  -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
@@ -36,8 +35,8 @@
             </div>
         </div>
     </nav>
-    <!-- single food details  -->
 
+    <!-- single food details  -->
     <!-- Modal -->
     <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -63,13 +62,13 @@
         </div>
     </div>
 
-    <!-- search  -->
+    <!-- search bar  -->
     <div class="container mt-5 mb-5 w-50">
         <div class="row text-center">
             <div class="col-sm-12">
                 <div class="content">
                     <div class="input-group">
-                        <input onkeypress="getFoodContainer()" id="input" type="text" class="form-control" placeholder="Search...">
+                        <input id="input" type="text" class="form-control" placeholder="Search...">
                         <span class="input-group-btn">
                              <button onclick="getFoodContainer()" id="searchBtn" class="btn btn-primary" type="submit">Search</button>
                         </span>
@@ -81,7 +80,7 @@
         <h5 id="notification" class="text-center p-5" style="color:tomato; display:none;"> Sorry, we don't have that. We will add that in near future.</h5>
     </div>
 
-    <!-- item name and pic -->
+    <!--All food item name and pic -->
     <div id="localBox" class="container">
         <div id="allFoodContainer" class="row row-cols-2 row-cols-md-4 g-4">
 
