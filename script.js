@@ -1,5 +1,6 @@
 //getting the value of the search field 
 let searchInput = document.getElementById('input')
+let notify = document.getElementById('notification')
 
 //calling the food container data 
 function getFoodContainer() {
@@ -10,19 +11,22 @@ function getFoodContainer() {
             food(data)
         })
         .catch(error => {
-            document.getElementById('notification').style.display = "block"
+            notify.innerText = ` Sorry, we don't have "${searchInput.value}" at this moment. We will add that in near future. `
+            notify.style.color = "tomato"
         })
 }
 
 //printing the data from search results
 const food = data => {
     const foodCategories = data.meals;
-    document.getElementById('notification').style.display = "none";
+    notify.style.display = "block";
+    notify.style.color = "gray"
+    notify.innerText = `Showing results for "${searchInput.value}"`
     foodCategories.forEach((item, index, arr) => {
         const rank = arr[index];
 
-        const box = `<div onclick="foodIngredients('${rank.idMeal}')" class="col" data-bs-toggle="modal" data-bs-target="#myModal">
-                        <div class="card h-100">
+        const box = `<div class="col">
+                        <div onclick="foodIngredients('${rank.idMeal}')" class="card h-100 foodModal" data-bs-toggle="modal" data-bs-target="#myModal">
                             <img src="${rank.strMealThumb}" class="card-img-top" alt="...">
                             <div class="card-body">
                                 <h5 class="card-title">${rank.strMeal}</h5>
