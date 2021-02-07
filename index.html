@@ -48,7 +48,7 @@
                 <div class="modal-body">
                     <div class="col">
                         <div class="card h-100">
-                            <img id="modalImage" src="image.png" class="card-img-top" alt="...">
+                            <img id="modalImage" class="card-img-top" alt="...">
                             <div id="ingredientList" class="card-body">
 
                             </div>
@@ -68,9 +68,9 @@
             <div class="col-sm-12">
                 <div class="content">
                     <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Search...">
+                        <input id="input" type="text" class="form-control" placeholder="Search...">
                         <span class="input-group-btn">
-                             <button class="btn btn-primary" type="submit">Search</button>
+                             <button onclick="getFoodContainer()" id="searchBtn" class="btn btn-primary" type="submit">Search</button>
                         </span>
                     </div>
                 </div>
@@ -85,20 +85,26 @@
     </div>
 
     <script>
-        fetch('https://themealdb.com/api/json/v1/1/filter.php?c=Miscellaneous')
-            .then(response => response.json())
-            .then(data => {
-                food(data)
-            })
+        function getFoodContainer() {
+            document.getElementById('allFoodContainer').innerHTML = ""
+            fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${searchInput.value}`)
+                .then(response => response.json())
+                .then(data => {
+                    food(data)
+                })
+                .catch(error => {
+                    console.log("Sorry, we don't have that")
+                })
+        }
+        let searchInput = document.getElementById('input')
+            // getFoodContainer()
 
         const food = data => {
             const foodCategories = data.meals;
-            foodCategories.forEach(myFunction);
-        }
-
-        function myFunction(item, index, arr) {
-            const rank = arr[index];
-            const box = `<div onclick="foodIngredients('${rank.idMeal}')" class="col" data-bs-toggle="modal" data-bs-target="#myModal">
+            // foodCategories.forEach(myFunction);
+            foodCategories.forEach((item, index, arr) => {
+                const rank = arr[index];
+                const box = `<div onclick="foodIngredients('${rank.idMeal}')" class="col" data-bs-toggle="modal" data-bs-target="#myModal">
                 <div class="card h-100">
                     <img src="${rank.strMealThumb}" class="card-img-top" alt="...">
                     <div class="card-body">
@@ -106,16 +112,29 @@
                     </div>
                 </div>
             </div>`
-                // let myList = foodIngredients(rank.idMeal)
-                // console.log(myList)
-            const allFoodContainer = document.getElementById('allFoodContainer')
-            allFoodContainer.innerHTML += box
+                    // let myList = foodIngredients(rank.idMeal)
+                    // console.log(myList)
+                const allFoodContainer = document.getElementById('allFoodContainer')
+                allFoodContainer.innerHTML += box
+            })
         }
 
-        // const foodDetails = foodName => {
-        //     console.log(foodName + ' is clicked '
-        //     )
+        // function myFunction(item, index, arr) {
+        //     const rank = arr[index];
+        //     const box = `<div onclick="foodIngredients('${rank.idMeal}')" class="col" data-bs-toggle="modal" data-bs-target="#myModal">
+        //         <div class="card h-100">
+        //             <img src="${rank.strMealThumb}" class="card-img-top" alt="...">
+        //             <div class="card-body">
+        //                 <h5 class="card-title">${rank.strMeal}</h5>
+        //             </div>
+        //         </div>
+        //     </div>`
+        //         // let myList = foodIngredients(rank.idMeal)
+        //         // console.log(myList)
+        //     const allFoodContainer = document.getElementById('allFoodContainer')
+        //     allFoodContainer.innerHTML += box
         // }
+
 
         const foodIngredients = foodName => {
 
@@ -126,7 +145,7 @@
                         // meals.forEach(ingredientList);
                     meals.forEach((item, index, arr) => {
                         const listing = arr[index];
-                        console.log(listing)
+                        // console.log(listing)
                         const ingredientItems = `
                         <h5 id="foodName" class="card-title">${listing.strMeal}</h5>
                                 <h6>Ingredients</h6>
@@ -135,12 +154,20 @@
             <p>${listing.strMeasure3} ${listing.strIngredient3}</p>
             <p>${listing.strMeasure4} ${listing.strIngredient4}</p>
             `
-                        console.log(ingredientItems)
+                            // console.log(ingredientItems)
                         document.getElementById("ingredientList").innerHTML = ingredientItems
                         document.getElementById("modalImage").src = listing.strMealThumb
                     })
                 })
         }
+
+
+        searchInput.addEventListener("keydown", function(event) {
+            if (event.keyCode === 13) {
+                event.preventDefault();
+                document.getElementById("searchBtn").click();
+            }
+        });
     </script>
 
 
