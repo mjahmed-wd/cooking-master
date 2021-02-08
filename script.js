@@ -52,10 +52,11 @@ const foodIngredients = foodName => {
                 const ingredientItems =
                     `<h5 id="foodName" class="card-title">${listing.strMeal}</h5>
                 <h6>Ingredients</h6>
-                <p>${listing.strMeasure1} ${listing.strIngredient1}</p>
-                <p>${listing.strMeasure2} ${listing.strIngredient2}</p>
-                <p>${listing.strMeasure3} ${listing.strIngredient3}</p>
-                <p>${listing.strMeasure4} ${listing.strIngredient4}</p> `
+                <ul class="listing">
+                <li>${listing.strMeasure1} ${listing.strIngredient1}</li>
+                <li>${listing.strMeasure2} ${listing.strIngredient2}</li>
+                <li>${listing.strMeasure3} ${listing.strIngredient3}</li>
+                <li>${listing.strMeasure4} ${listing.strIngredient4}</li> </ul>`
 
                 document.getElementById("ingredientList").innerHTML = ingredientItems
                 document.getElementById("modalImage").src = listing.strMealThumb
