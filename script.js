@@ -52,16 +52,35 @@ const foodIngredients = foodName => {
                 const ingredientItems =
                     `<h5 id="foodName" class="card-title">${listing.strMeal}</h5>
                 <h6>Ingredients</h6>
-                <ul class="listing">
-                <li>${listing.strMeasure1} ${listing.strIngredient1}</li>
-                <li>${listing.strMeasure2} ${listing.strIngredient2}</li>
-                <li>${listing.strMeasure3} ${listing.strIngredient3}</li>
-                <li>${listing.strMeasure4} ${listing.strIngredient4}</li> </ul>`
+                <hr>
+                <div class="listing">
+                <p>${listing.strMeasure1} ${listing.strIngredient1}</p>
+                <p>${listing.strMeasure2} ${listing.strIngredient2}</p>
+                <p>${listing.strMeasure3} ${listing.strIngredient3}</p>
+                <p>${listing.strMeasure4} ${listing.strIngredient4}</p>
+                <p>${listing.strMeasure5} ${listing.strIngredient5}</p>
+                <p>${listing.strMeasure6} ${listing.strIngredient6}</p>
+                <p>${listing.strMeasure7} ${listing.strIngredient7}</p>
+                <p>${listing.strMeasure8} ${listing.strIngredient8}</p>
+                <p>${listing.strMeasure9} ${listing.strIngredient9}</p>
+                <p>${listing.strMeasure10} ${listing.strIngredient10}</p>
+                <p>${listing.strMeasure11} ${listing.strIngredient11}</p>
+                <p>${listing.strMeasure12} ${listing.strIngredient12}</p>
+                <p>${listing.strMeasure13} ${listing.strIngredient13}</p>
+                <p>${listing.strMeasure14} ${listing.strIngredient14}</p>
+                <p>${listing.strMeasure15} ${listing.strIngredient15}</p>
+                <p>${listing.strMeasure16} ${listing.strIngredient16}</p>
+                <p>${listing.strMeasure17} ${listing.strIngredient17}</p>
+                <p>${listing.strMeasure18} ${listing.strIngredient18}</p>
+                <p>${listing.strMeasure19} ${listing.strIngredient19}</p>
+                <p>${listing.strMeasure20} ${listing.strIngredient20}</p></div>`
 
                 document.getElementById("ingredientList").innerHTML = ingredientItems
                 document.getElementById("modalImage").src = listing.strMealThumb
+
             })
         })
+
 }
 
 //search button clicking with enter key
