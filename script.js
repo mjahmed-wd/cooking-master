@@ -99,7 +99,7 @@ const removeEmptyLi = () => {
     const findAllLi = [...document.getElementsByTagName('li')]
     findAllLi.forEach((item, index, arr) => {
         const element = arr[index];
-        if (element.innerText == "") {
+        if (element.innerText == "" || element.innerText == ' null' || element.innerText == 'null null') {
             element.style.display = "none";
         }
     })
